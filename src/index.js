@@ -28,10 +28,10 @@ async function main () {
     oldTars.map((oldTar) => fs.unlink(path.join(assetsPath, oldTar)))
   )
 
-  console.log('[STARTING][LOG] Start fetch assets')
+  console.log('[LOAD][LOG] Start fetch assets')
   const assets = await fetchAssets(assetsPath)
 
-  console.log('[STARTING][LOG] Start making tar(s) of assets')
+  console.log('[LOAD][LOG] Start making tar(s) of assets')
   let startTime = Date.now()
   const tars = await Promise.all(
     assets.map((asset) =>
@@ -47,9 +47,9 @@ async function main () {
     )
   )
   const tarTime = Date.now() - startTime
-  console.log('[STARTING][LOG] Tars builded in ' + tarTime + ' ms')
+  console.log('[LOAD][LOG] Tars builded in ' + tarTime + ' ms')
 
-  console.log('[STARTING][LOG] Start compute hash of assets')
+  console.log('[LOAD][LOG] Start compute hash of assets')
   startTime = Date.now()
   global.assets = await Promise.all(
     tars.map((assetName) => {
@@ -66,7 +66,7 @@ async function main () {
     })
   )
   const hashTime = Date.now() - startTime
-  console.log('[STARTING][LOG] Assets hash computed in ' + hashTime + ' ms')
+  console.log('[LOAD][LOG] Assets hash computed in ' + hashTime + ' ms')
 
   console.log('[STARTING][LOG] Ready to start server')
   app.listen(8080).then(() => {
