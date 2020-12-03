@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "lint": "standard --fix 'src/*'",
+    "lint": "standard --fix 'src/*' 'src/*/*'",
     "prettier": "prettier --write src"
   },
   "author": "",
@@ -15,6 +15,8 @@
     "standard": "^16.0.3"
   },
   "dependencies": {
-    "express": "^4.17.1"
+    "express": "^4.17.1",
+    "hasha": "^5.2.2",
+    "tar": "^6.0.5"
   }
 }
