@@ -1,0 +1,20 @@
+{
+  "name": "download-server",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "lint": "standard --fix 'src/*'",
+    "prettier": "prettier --write src"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "prettier": "^2.2.1",
+    "standard": "^16.0.3"
+  },
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}
