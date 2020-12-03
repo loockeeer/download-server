@@ -79,7 +79,7 @@ async function main () {
   console.log('[LOAD][LOG] Assets hash computed in ' + hashTime + ' ms')
 
   console.log('[STARTING][LOG] Ready to start server')
-  app.listen(8080).then(() => {
+  app.listen(process.env.PORT).then(() => {
     console.log('[STARTING][INFO] Server started !')
     console.log('[STARTED][INFO] You can stop it with Ctrl+C')
   })
