@@ -19,6 +19,16 @@ app.get('/assets', (req, res) => {
   )
 })
 
+app.get('/assets/:assetName', (req, res) => {
+  const asset = global.assets.find(asset=>asset.name === req.params.assetName)
+  
+  if(!asset) {
+    return res.status(404).send({message: 'Could not find any asset with name ' + req.params.assetName})
+  }
+  
+  return res.sendFile(asset.tarPath)
+})
+
 async function main () {
   const assetsPath = path.join(__dirname, 'assets')
 
