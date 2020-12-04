@@ -13,7 +13,6 @@ const compareRoute = require('./routes/compare')
 // Configure routes
 app.get('/compare', compareRoute)
 
-
 // App main
 async function main () {
   const publicPath = path.join(__dirname, 'public' || process.env.DATA_FOLDER)
