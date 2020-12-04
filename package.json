@@ -15,8 +15,8 @@
     "standard": "^16.0.3"
   },
   "dependencies": {
+    "chalk": "^4.1.0",
     "express": "^4.17.1",
-    "hasha": "^5.2.2",
-    "tar": "^6.0.5"
+    "hasha": "^5.2.2"
   }
 }
