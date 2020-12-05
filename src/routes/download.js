@@ -6,10 +6,12 @@ module.exports = async (req, res) => {
       .send({ message: 'Missing relativePath in query parameters' })
   }
 
-  const localFiles = req.app.get('files')
+  const localFiles = req.app.get('APP_files')
 
   const file = localFiles.find((file) => file.relativePath === relativePath)
-  if (!file) { return res.status(404).send({ message: 'This file does not exists' }) }
+  if (!file) {
+    return res.status(404).send({ message: 'This file does not exists' })
+  }
 
   return res.sendFile(file.fullPath)
 }
