@@ -7,6 +7,10 @@ const chalk = require('chalk')
 
 const walk = require('./utils/walk')
 
+// Define constants
+const HOST = process.env.HOST || '127.0.0.1'
+const PORT = process.env.PORT || 8080
+
 // Import routes
 const compareRoute = require('./routes/compare')
 const downloadRoute = require('./routes/download')
@@ -22,11 +26,12 @@ app.use((req, res, next) => {
     minute: 'numeric',
     second: 'numeric'
   }
+  const time = new Intl.DateTimeFormat(
+    'default',
+    opt
+  ).format(new Date())
   console.log(
-    chalk`{bold.blue [REQUEST][LOG]} {bold.gray ${new Intl.DateTimeFormat(
-      'default',
-      opt
-    ).format(new Date())}} {magenta ${req.method}} ${req.originalUrl}`
+    chalk`{bold.blue [LOG]} {gray ${time}} {bold ${req.method}} {green ${req.originalUrl}}`
   )
   next()
 })
@@ -56,10 +61,11 @@ async function main () {
   )
 
   app.set('APP_files', files)
-
+  
   console.log(chalk`{bold.blue [STARTING][LOG]} Ready to start server`)
-  app.listen(process.env.PORT, () => {
-    console.log(chalk`{bold.blue [STARTING][INFO]} {green Server started !}`)
+  app.listen(PORT, HOST, () => {
+    console.log(chalk`{bold.blue [INFO]} {green Server started !}`)
+    console.log(chalk`{bold.blue [INFO]} {green Listening on ${HOST}:${PORT}}`)
     console.log(chalk`{bold.blue [INFO]} {green You can stop it with Ctrl+C}`)
   })
 }
