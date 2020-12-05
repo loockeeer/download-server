@@ -4,6 +4,7 @@ const app = express()
 const path = require('path')
 const hasha = require('hasha')
 const chalk = require('chalk')
+const bodyParser = require('body-parser')
 
 const walk = require('./utils/walk')
 
@@ -16,6 +17,7 @@ const compareRoute = require('./routes/compare')
 const downloadRoute = require('./routes/download')
 
 // Configure middlewares
+app.use(bodyParser.json())
 app.use((req, res, next) => {
   const opt = {
     hour: 'numeric',
