@@ -9,9 +9,11 @@ const walk = require('./utils/walk')
 
 // Import routes
 const compareRoute = require('./routes/compare')
+const downloadRoute = require('./routes/download')
 
 // Configure routes
-app.get('/compare', compareRoute)
+app.post('/compare', compareRoute)
+app.get('/download', downloadRoute)
 
 // App main
 async function main () {
