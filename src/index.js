@@ -31,9 +31,10 @@ app.use((req, res, next) => {
   next()
 })
 
+app.use('/download', express.static(path.join(process.cwd(), 'public'), { dotfiles: 'allow' }))
+
 // Configure routes
 app.post('/compare', compareRoute)
-app.get('/download', downloadRoute)
 
 // App main
 async function main () {
