@@ -2,11 +2,12 @@
   "name": "download-server",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "src/index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "lint": "standard --fix 'src/*' 'src/*/*'",
-    "prettier": "prettier --write src"
+    "prettier": "prettier --write src",
+    "start": "node src/index.js"
   },
   "author": "",
   "license": "ISC",
