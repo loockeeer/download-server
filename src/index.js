@@ -17,7 +17,7 @@ const compareRoute = require('./routes/compare')
 const downloadRoute = require('./routes/download')
 
 // Configure middlewares
-app.use(bodyParser.json())
+app.use(bodyParser.json({ limit: '1gb' }))
 app.use((req, res, next) => {
   const opt = {
     hour: 'numeric',
