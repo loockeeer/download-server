@@ -35,7 +35,7 @@ app.use((req, res, next) => {
 
 // App main
 async function main () {
-  const publicPath = path.join(__dirname, 'public' || process.env.DATA_FOLDER)
+  const publicPath = path.join(process.cwd(), 'public')
   const files = []
 
   console.log(chalk`{bold.blue [LOAD][LOG]} Start computing hash of files`)
