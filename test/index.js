@@ -27,10 +27,10 @@ async function main () {
     await fs.promises.mkdir(path.dirname(path.join(folder, toDownload.relativePath)), { recursive: true })
     const file = fs.createWriteStream(path.join(folder, toDownload.relativePath))
 
-    http.get('http://localhost:8080/download?relativePath=' + encodeURIComponent(toDownload.relativePath), res => {
+    http.get(`http://localhost:8080/download/${toDownload.relativePath}`, res => {
       res.pipe(file)
-      console.log('Starting fetch ' + toDownload.relativePath)
-      res.on('end', () => console.log('End fetching ' + toDownload.relativePath))
+      console.log(`Starting fetch ${toDownload.relativePath}`)
+      res.on('end', () => console.log(`End fetching ${toDownload.relativePath}`))
     })
   }
 }
