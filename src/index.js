@@ -15,10 +15,6 @@ const PORT = process.env.PORT || 8080
 const compareRoute = require('./routes/compare')
 const downloadRoute = require('./routes/download')
 
-// Configure routes
-app.post('/compare', compareRoute)
-app.get('/download', downloadRoute)
-
 // Configure middlewares
 app.use((req, res, next) => {
   const opt = {
@@ -32,6 +28,10 @@ app.use((req, res, next) => {
   )
   next()
 })
+
+// Configure routes
+app.post('/compare', compareRoute)
+app.get('/download', downloadRoute)
 
 // App main
 async function main () {
