@@ -15,6 +15,15 @@ const downloadRoute = require('./routes/download')
 app.post('/compare', compareRoute)
 app.get('/download', downloadRoute)
 
+// Configure middlewares
+app.use((req, res, next) => {
+  const opt = {
+    hour: 'numeric', minute: 'numeric', second: 'numeric'
+  }
+  console.log(chalk`{bold.blue [REQUEST][LOG]} {bold.gray ${new Intl.DateTimeFormat('default', opt).format(new Date())}} {magenta ${req.method}} ${req.originalUrl}`)
+  next()
+}) 
+
 // App main
 async function main () {
   const publicPath = path.join(__dirname, 'public' || process.env.DATA_FOLDER)
