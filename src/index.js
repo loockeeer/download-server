@@ -26,10 +26,7 @@ app.use((req, res, next) => {
     minute: 'numeric',
     second: 'numeric'
   }
-  const time = new Intl.DateTimeFormat(
-    'default',
-    opt
-  ).format(new Date())
+  const time = new Intl.DateTimeFormat('default', opt).format(new Date())
   console.log(
     chalk`{bold.blue [LOG]} {gray ${time}} {bold ${req.method}} {green ${req.originalUrl}}`
   )
@@ -61,7 +58,7 @@ async function main () {
   )
 
   app.set('APP_files', files)
-  
+
   console.log(chalk`{bold.blue [STARTING][LOG]} Ready to start server`)
   app.listen(PORT, HOST, () => {
     console.log(chalk`{bold.blue [INFO]} {green Server started !}`)
