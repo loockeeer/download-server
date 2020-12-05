@@ -2,7 +2,7 @@ const isObject = require('../utils/isObject')
 
 module.exports = async (req, res) => {
   const localFiles = req.app.get('APP_files')
-  const distantFiles = req.body
+  const distantFiles = req?.body?.files
   if (!distantFiles) {
     return res.status(400).send({ message: 'Missing files array' })
   }
