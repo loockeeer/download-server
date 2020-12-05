@@ -18,11 +18,18 @@ app.get('/download', downloadRoute)
 // Configure middlewares
 app.use((req, res, next) => {
   const opt = {
-    hour: 'numeric', minute: 'numeric', second: 'numeric'
+    hour: 'numeric',
+    minute: 'numeric',
+    second: 'numeric'
   }
-  console.log(chalk`{bold.blue [REQUEST][LOG]} {bold.gray ${new Intl.DateTimeFormat('default', opt).format(new Date())}} {magenta ${req.method}} ${req.originalUrl}`)
+  console.log(
+    chalk`{bold.blue [REQUEST][LOG]} {bold.gray ${new Intl.DateTimeFormat(
+      'default',
+      opt
+    ).format(new Date())}} {magenta ${req.method}} ${req.originalUrl}`
+  )
   next()
-}) 
+})
 
 // App main
 async function main () {
@@ -48,9 +55,7 @@ async function main () {
     }} seconds`
   )
 
-  app.configure(() => {
-    app.set('files', files)
-  })
+  app.set('APP_files', files)
 
   console.log(chalk`{bold.blue [STARTING][LOG]} Ready to start server`)
   app.listen(process.env.PORT, () => {
