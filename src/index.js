@@ -43,6 +43,8 @@ app.post('/compare', compareRoute)
 // App main
 async function main () {
   const publicPath = path.join(process.cwd(), 'public')
+  const stat = await fs.stat(publicPath).catch(()=>{ throw 'Public folder does not exist' })
+  if(stat && !stat.isDirectory() throw '"public" is a file and not a folder'
   const files = []
 
   console.log(chalk`{bold.blue [LOAD][LOG]} Start computing hash of files`)
