@@ -5,6 +5,7 @@ const path = require('path')
 const hasha = require('hasha')
 const chalk = require('chalk')
 const bodyParser = require('body-parser')
+const helmet = require('helmet')
 
 const walk = require('./utils/walk')
 
@@ -16,6 +17,7 @@ const PORT = process.env.PORT || 8080
 const compareRoute = require('./routes/compare')
 
 // Configure middlewares
+app.use(helmet())
 app.use(bodyParser.json({ limit: '1gb' }))
 app.use((req, res, next) => {
   const opt = {
