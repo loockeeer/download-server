@@ -6,7 +6,7 @@ const hasha = require('hasha')
 const chalk = require('chalk')
 const bodyParser = require('body-parser')
 const helmet = require('helmet')
-const fs = require('fs')
+const fs = require('fs/promises')
 
 const walk = require('./utils/walk')
 
