@@ -53,10 +53,9 @@ async function main () {
 
   for await (const file of walk(publicPath)) {
     const hash = await hasha.fromFile(file, { algorithm: 'sha1' })
-    console.log(publicPath)
     files.push({
       fullPath: file,
-      relativePath: file.replace(path.normalize(publicPath.endsWith('/') ? publicPath : `${publicPath}/`), ''),
+      relativePath: file.replace(publicPath + '/', ''),
       hash
     })
   }

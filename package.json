@@ -13,9 +13,9 @@
   "license": "ISC",
   "devDependencies": {
     "axios": "^0.21.0",
-    "helmet": "^4.2.0",
     "prettier": "^2.2.1",
-    "standard": "^16.0.3"
+    "standard": "^16.0.3",
+    "helmet": "^4.2.0"
   },
   "dependencies": {
     "body-parser": "^1.19.0",
