@@ -30,7 +30,7 @@ module.exports = async (req, res) => {
           dFile.relativePath === file.relativePath && dFile.hash === file.hash
       )
     })
-    .concat(distantFiles.filter((dFile) => !localFiles.find((lFile) => lFile.relativePath === dFile.relativePath))
+    .concat(distantFiles.filter((dFile) => !localFiles.find((lFile) => lFile.relativePath === dFile.relativePath)))
     .map((file) => {
          const fileExists = localFiles.find((f) => f.relativePath === file.relativePath)
          let o;
