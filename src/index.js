@@ -55,7 +55,7 @@ async function main () {
     const hash = await hasha.fromFile(file, { algorithm: 'sha1' })
     files.push({
       fullPath: file,
-      relativePath: file.replace(publicPath + '/', ''),
+      relativePath: file.replace(path.normalize(publicPath.endsWith('/') ? publicPath : `${publicPath}/`), ''),
       hash
     })
   }
