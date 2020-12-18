@@ -28,7 +28,7 @@ module.exports = async (req, res) => {
       
       const localFile = localFiles.find(
         (lFile) =>
-          dFile.relativePath === file.relativePath
+          dFile.relativePath === lFile.relativePath
       )
       
       if(localFile) {
@@ -38,6 +38,8 @@ module.exports = async (req, res) => {
       } else {
         return { mode: 'delete', relativePath: dFile.relativePath, hash: dFile.hash } 
       }
+      
+      return {}
     })
     .concat(
       localFiles.filter((lFile) => !distantFiles.find((dFile) => dFile.relativePath === lFile.relativePath))
