@@ -23,21 +23,25 @@ module.exports = async (req, res) => {
       .status(400)
       .send({ message: 'Sent array does not match required pattern' })
   }
-  const toDownloadFiles = localFiles
-    .filter((file) => {
-      return !distantFiles.find(
-        (dFile) =>
-          dFile.relativePath === file.relativePath && dFile.hash === file.hash
+  const toDownloadFiles = distantFiles
+    .map((dFile) => {
+      
+      const localFile = localFiles.find(
+        (lFile) =>
+          dFile.relativePath === file.relativePath
       )
+      
+      if(localFile) {
+        if(localFile.hash !== dFile.hash) {
+          return { mode: 'download', relativePath: localFile.relativePath, hash: localFile.hash }
+        }
+      } else {
+        return { mode: 'delete', relativePath: dFile.relativePath, hash: dFile.hash } 
+      }
     })
-    .concat(distantFiles.filter((dFile) => !localFiles.find((lFile) => lFile.relativePath === dFile.relativePath)))
-    .map((file) => {
-         const fileExists = localFiles.find((f) => f.relativePath === file.relativePath)
-         let o;
-         if (fileExists) o = { mode: 'download', relativePath: file.relativePath, hash: file.hash }
-         else o = { mode: 'delete', relativePath: file.relativePath }
-         return o
-    })
-
+    .concat(
+      localFiles.filter((lFile) => !distantFiles.find((dFile) => dFile.relativePath === lFile.relativePath))
+        .map((lFile) => ({ mode: 'download', relativePath: lFile.relativePath, hash: lFile.relativePath }))
+    )
   return res.send(toDownloadFiles)
 }
