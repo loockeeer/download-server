@@ -22,7 +22,7 @@ const compareRoute = require('./routes/compare')
 app.use(helmet())
 app.use(bodyParser.json({ limit: '1gb' }))
 app.use((req, res, next) => {
-  if (!DEBUG) return
+  if (!DEBUG) return next()
   const opt = {
     hour: 'numeric',
     minute: 'numeric',
