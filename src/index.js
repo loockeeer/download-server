@@ -13,6 +13,7 @@ const walk = require('./utils/walk')
 // Define constants
 const HOST = process.env.HOST || '127.0.0.1'
 const PORT = process.env.PORT || 8080
+const DEBUG = process.env.DEBUG == "true" ? true : false 
 
 // Import routes
 const compareRoute = require('./routes/compare')
@@ -21,6 +22,7 @@ const compareRoute = require('./routes/compare')
 app.use(helmet())
 app.use(bodyParser.json({ limit: '1gb' }))
 app.use((req, res, next) => {
+  if(!DEBUG) return
   const opt = {
     hour: 'numeric',
     minute: 'numeric',
@@ -53,9 +55,11 @@ async function main () {
 
   for await (const file of walk(publicPath)) {
     const hash = await hasha.fromFile(file, { algorithm: 'sha1' })
+    const normalized = path.normalize(file)
+    
     files.push({
       fullPath: file,
-      relativePath: file.replace(path.normalize(publicPath.endsWith('/') ? publicPath : `${publicPath}/`), ''),
+      relativePath: normalized.replace(path.normalize(`${publicPath}/`), ''),
       hash
     })
   }
