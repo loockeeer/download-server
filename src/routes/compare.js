@@ -1,4 +1,5 @@
 const isObject = require('../utils/isObject')
+const path = require('path')
 
 module.exports = async (req, res) => {
   const localFiles = req.app.get('APP_files')
@@ -25,12 +26,16 @@ module.exports = async (req, res) => {
   }
   const toDownloadFiles = localFiles
     .filter((file) => {
-      return !distantFiles.find(
-        (dFile) =>
-          dFile.relativePath === file.relativePath && dFile.hash === file.hash
+      const exists = distantFiles.findIndex(
+        (dFile) => 
+          path.normalize(dFile.relativePath) === file.relativePath && dFile.hash === file.hash
       )
+      if(exists) {
+        distantFiles.splice(exists, 1)
+      }
+      return !exists
     })
-    .map((file) => ({ relativePath: file.relativePath, hash: file.hash }))
+    .map((file) => ({ relativePath: file.relativePath, hash: file.hash, op: 'download' }))
 
   return res.send(toDownloadFiles)
 }
