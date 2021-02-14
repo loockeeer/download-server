@@ -13,7 +13,7 @@ const walk = require('./utils/walk')
 // Define constants
 const HOST = process.env.HOST || '127.0.0.1'
 const PORT = process.env.PORT || 8080
-const DEBUG = process.env.DEBUG === "true" ? true : false 
+const DEBUG = process.env.DEBUG === 'true'
 
 // Import routes
 const compareRoute = require('./routes/compare')
@@ -22,7 +22,7 @@ const compareRoute = require('./routes/compare')
 app.use(helmet())
 app.use(bodyParser.json({ limit: '1gb' }))
 app.use((req, res, next) => {
-  if(!DEBUG) return
+  if (!DEBUG) return
   const opt = {
     hour: 'numeric',
     minute: 'numeric',
@@ -46,8 +46,12 @@ app.post('/compare', compareRoute)
 // App main
 async function main () {
   const publicPath = path.join(process.cwd(), 'public')
-  const stat = await fs.stat(publicPath).catch(()=>{ throw Error('Public folder does not exist')   })
-  if(stat && !stat.isDirectory())throw Error('"public" is a file and not a folder')
+  const stat = await fs.stat(publicPath).catch(() => {
+    throw Error('Public folder does not exist')
+  })
+  if (stat && !stat.isDirectory()) {
+    throw Error('"public" is a file and not a folder')
+  }
   const files = []
 
   console.log(chalk`{bold.blue [LOAD][LOG]} Start computing hash of files`)
@@ -56,7 +60,7 @@ async function main () {
   for await (const file of walk(publicPath)) {
     const hash = await hasha.fromFile(file, { algorithm: 'sha1' })
     const normalized = path.normalize(file)
-    
+
     files.push({
       fullPath: file,
       relativePath: normalized.replace(path.normalize(`${publicPath}/`), ''),
