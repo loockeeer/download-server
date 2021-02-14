@@ -36,6 +36,6 @@ After that you can send it to the API at route `/compare` in a POST request. The
 }
 ```
 
-The server will send you an Array like the one you sent, but with the files you need to download.
+The server will send you an Array like the one you sent, but with the files you need to download and a field "op" with either "download" or "remove".
 
 To download a file, just make a GET request at `/download/PATH` where `PATH` is the `relativePath` you received for the file you are downloading. Finally, if you want, you can compute the hash of the files you received and compare to the ones the server sent.
