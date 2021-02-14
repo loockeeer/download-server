@@ -13,7 +13,7 @@ const walk = require('./utils/walk')
 // Define constants
 const HOST = process.env.HOST || '127.0.0.1'
 const PORT = process.env.PORT || 8080
-const DEBUG = process.env.DEBUG == "true" ? true : false 
+const DEBUG = process.env.DEBUG === "true" ? true : false 
 
 // Import routes
 const compareRoute = require('./routes/compare')
