@@ -30,9 +30,6 @@ module.exports = async (req, res) => {
         (dFile) => 
           path.normalize(dFile.relativePath) === file.relativePath && dFile.hash === file.hash
       )
-      if(exists) {
-        distantFiles.splice(exists, 1)
-      }
       return !exists
     })
     .map((file) => ({ relativePath: file.relativePath, hash: file.hash, op: 'download' }))
