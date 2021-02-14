@@ -8,7 +8,7 @@ It uses a hash of the tree to be deployed, which is compared with the client's h
 
 You can start it with `npm run start`
 
-You can also specify `PORT` and `HOST` env. variables if you want to configure them.
+You can also specify `PORT` (number), `HOST` (string) and `DEBUG` (boolean) env. variables if you want to configure them.
 
 ## Where to put files
 You just need to put them into a `public` folder at the root of the app
