@@ -4,6 +4,7 @@ const path = require('path')
 module.exports = async (req, res) => {
   const localFiles = req.app.get('APP_files')
   const distantFiles = req?.body?.files
+
   if (!distantFiles) {
     return res.status(400).send({ message: 'Missing files array' })
   }
@@ -24,14 +25,16 @@ module.exports = async (req, res) => {
       .status(400)
       .send({ message: 'Sent array does not match required pattern' })
   }
+
   const toDownloadFiles = []
+ 
   for (const localFile of localFiles) {
     const distantFile = distantFiles.find((df) => {
-      return path.normalize(df.relativePath) === path.normalize(localFile.relativePath) && df.hash === localFile.hash
+      return path.normalize(df.relativePath) === localFile.relativePath && df.hash === localFile.hash
     })
 
-    if (distantFile) {
-      toDownloadFiles.push({ ...localFile, op: 'download' })
+    if (!distantFile) {
+      toDownloadFiles.push({ hash: localFile.hash, relativePath: localFile.relativePath, op: 'download' })
     }
   }
 
@@ -42,7 +45,7 @@ module.exports = async (req, res) => {
     })
 
     if (!localFile) {
-      toRemoveFiles.push({ ...localFile, op: 'remove' })
+      toRemoveFiles.push({ ...distantFile, op: 'remove' })
     }
   }
 
