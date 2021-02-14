@@ -17,6 +17,8 @@ You just need to put them into a `public` folder at the root of the app
 
 You can check [this file](https://github.com/loockeeer/download-server/blob/master/test/index.js) if you want to see how you could implement a client for it.
 
+Also, a client is ready [here](https://github.com/loockeeer/download-client-go)
+
 First, you need to compute the hash of every file on the client side.
 Then, put them into an array like that : 
 ```js
