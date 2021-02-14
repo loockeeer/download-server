@@ -25,24 +25,24 @@ module.exports = async (req, res) => {
       .send({ message: 'Sent array does not match required pattern' })
   }
   const toDownloadFiles = []
-  for(const localFile of localFiles) {
-    const distantFile = distantFiles.find(df => {
-      df.relativePath === localFile.relativePath && df.hash === localFile.hash
+  for (const localFile of localFiles) {
+    const distantFile = distantFiles.find((df) => {
+      return path.normalize(df.relativePath) === path.normalize(localFile.relativePath) && df.hash === localFile.hash
     })
 
-    if(distantFile) {
-      toDownloadFiles.push({...localFile, op: 'download'})
+    if (distantFile) {
+      toDownloadFiles.push({ ...localFile, op: 'download' })
     }
   }
 
   const toRemoveFiles = []
-  for(const distantFile of distantFiles) {
-    const localFile = localFiles.find(lf => {
-      lf.relativePath === distantFile.relativePath
+  for (const distantFile of distantFiles) {
+    const localFile = localFiles.find((lf) => {
+      return path.normalize(lf.relativePath) === path.normalize(distantFile.relativePath)
     })
 
-    if(!localFile) {
-      toRemoveFiles.push({...localFile, op: 'remove'})
+    if (!localFile) {
+      toRemoveFiles.push({ ...localFile, op: 'remove' })
     }
   }
 
