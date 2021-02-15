@@ -27,21 +27,31 @@ module.exports = async (req, res) => {
   }
 
   const toDownloadFiles = []
- 
+
   for (const localFile of localFiles) {
     const distantFile = distantFiles.find((df) => {
-      return path.normalize(df.relativePath) === localFile.relativePath && df.hash === localFile.hash
+      return (
+        path.normalize(df.relativePath) === localFile.relativePath &&
+        df.hash === localFile.hash
+      )
     })
 
     if (!distantFile) {
-      toDownloadFiles.push({ hash: localFile.hash, relativePath: localFile.relativePath, op: 'download' })
+      toDownloadFiles.push({
+        hash: localFile.hash,
+        relativePath: localFile.relativePath,
+        op: 'download'
+      })
     }
   }
 
   const toRemoveFiles = []
   for (const distantFile of distantFiles) {
     const localFile = localFiles.find((lf) => {
-      return path.normalize(lf.relativePath) === path.normalize(distantFile.relativePath)
+      return (
+        path.normalize(lf.relativePath) ===
+        path.normalize(distantFile.relativePath)
+      )
     })
 
     if (!localFile) {
