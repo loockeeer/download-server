@@ -1,3 +1,4 @@
+require('dotenv').config()
 const express = require('express')
 const app = express()
 
@@ -13,10 +14,12 @@ const walk = require('./utils/walk')
 // Define constants
 const HOST = process.env.HOST || '127.0.0.1'
 const PORT = process.env.PORT || 8080
-const DEBUG = process.env.DEBUG === 'true'
+const DEBUG = process.env.NODE_ENV !== "production"
+const HASH = process.env.HASH || 'md5'
 
 // Import routes
 const compareRoute = require('./routes/compare')
+const infoRoute = require('./routes/info')
 
 // Configure middlewares
 app.use(helmet())
@@ -42,7 +45,7 @@ app.use(
 
 // Configure routes
 app.post('/compare', compareRoute)
-
+app.get('/info', infoRoute)
 // App main
 async function main () {
   const publicPath = path.join(process.cwd(), 'public')
@@ -58,7 +61,7 @@ async function main () {
   const hashStartTime = Date.now()
 
   for await (const file of walk(publicPath)) {
-    const hash = await hasha.fromFile(file, { algorithm: 'md5' })
+    const hash = await hasha.fromFile(file, { algorithm: HASH })
     const normalized = path.normalize(file)
 
     files.push({
@@ -76,7 +79,7 @@ async function main () {
   )
 
   app.set('APP_files', files)
-
+  app.set('APP_hash', HASH)
   console.log(chalk`{bold.blue [STARTING][LOG]} Ready to start server`)
   app.listen(PORT, HOST, () => {
     console.log(chalk`{bold.blue [INFO]} {green Server started !}`)
