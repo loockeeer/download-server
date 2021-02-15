@@ -58,7 +58,7 @@ async function main () {
   const hashStartTime = Date.now()
 
   for await (const file of walk(publicPath)) {
-    const hash = await hasha.fromFile(file, { algorithm: 'sha1' })
+    const hash = await hasha.fromFile(file, { algorithm: 'md5' })
     const normalized = path.normalize(file)
 
     files.push({
