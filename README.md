@@ -8,12 +8,14 @@ It uses a hash of the tree to be deployed, which is compared with the client's h
 
 You can start it with `npm run start`
 
-You can also specify `PORT` (number), `HOST` (string) and `DEBUG` (boolean) env. variables if you want to configure them.
+You can also specify `PORT` (number), `HOST` (string) and env. variables if you want to configure what they correspond to
+
+Also, specify the `NODE_ENV=dev|production` env. variable depending on whether you are in production or development.
 
 ## Where to put files
 You just need to put them into a `public` folder at the root of the app
 
-## How does it works ?
+## How does it work ?
 
 You can check [this file](https://github.com/loockeeer/download-server/blob/master/test/index.js) if you want to see how you could implement a client for it.
 
@@ -38,6 +40,6 @@ After that you can send it to the API at route `/compare` in a POST request. The
 }
 ```
 
-The server will send you an Array like the one you sent, but with the files you need to download and a field "op" with either "download" or "remove".
+The server will send you an Array like the one you sent, but with the files you need to download, and a field "op" with either "download" or "remove".
 
 To download a file, just make a GET request at `/download/PATH` where `PATH` is the `relativePath` you received for the file you are downloading. Finally, if you want, you can compute the hash of the files you received and compare to the ones the server sent.
