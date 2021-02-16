@@ -1,5 +1,4 @@
 const isObject = require('../utils/isObject')
-const path = require('path')
 const slash = require('slash')
 
 module.exports = async (req, res) => {
