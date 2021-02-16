@@ -1,5 +1,6 @@
 const isObject = require('../utils/isObject')
 const path = require('path')
+const slash = require('slash')
 
 module.exports = async (req, res) => {
   const localFiles = req.app.get('APP_files')
@@ -31,7 +32,7 @@ module.exports = async (req, res) => {
   for (const localFile of localFiles) {
     const distantFile = distantFiles.find((df) => {
       return (
-        path.normalize(df.relativePath) === localFile.relativePath &&
+        slash(df.relativePath) === slash(localFile.relativePath) &&
         df.hash === localFile.hash
       )
     })
@@ -49,8 +50,8 @@ module.exports = async (req, res) => {
   for (const distantFile of distantFiles) {
     const localFile = localFiles.find((lf) => {
       return (
-        path.normalize(lf.relativePath) ===
-        path.normalize(distantFile.relativePath)
+        slash(lf.relativePath) ===
+        slash(distantFile.relativePath)
       )
     })
 
